@@ -1,9 +1,6 @@
 package com.be.elamreader.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
@@ -13,23 +10,26 @@ public class Reader {
     @Id
     @GeneratedValue
     @UuidGenerator
-    private UUID reader_id;
-    private String reader_name;
+    @Column(name = "reader_id")
+    private UUID readerId;
+
+    @Column(name = "reader_name")
+    private String readerName;
 
 
-    public UUID getReader_id() {
-        return reader_id;
+    public UUID getReaderId() {
+        return readerId;
     }
 
-    public void setReader_id(UUID reader_id) {
-        this.reader_id = reader_id;
+    public void setReaderId(UUID readerId) {
+        this.readerId = readerId;
     }
 
-    public String getReader_name() {
-        return reader_name;
+    public String getReaderName() {
+        return readerName;
     }
 
-    public void setReader_name(String reader_name) {
-        this.reader_name = reader_name;
+    public void setReaderName(String readerName) {
+        this.readerName = readerName;
     }
 }

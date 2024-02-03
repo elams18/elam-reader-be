@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/books")
@@ -27,10 +28,34 @@ public class BookController {
 
     @PostMapping
     protected ResponseEntity<?> createBook(@RequestBody Book book){
-        if(book.getReader_id() == null){
+        if(book.getReaderId() == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book does not have a reader");
         }
-        bookRepository.save(book);
-        return ResponseEntity.status(HttpStatus.CREATED).body(book);
+        Book savedBook = bookRepository.save(book);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
+    }
+
+    @GetMapping("/{bookId}")
+    protected ResponseEntity<?> getBookbyBookId(@PathVariable UUID bookId){
+        Book book = bookRepository.getBookByBookId(bookId);
+        return ResponseEntity.status(HttpStatus.OK).body(book);
+    }
+
+    @PatchMapping
+    protected ResponseEntity<?> updateBook(@RequestBody Book book){
+        if(book.getReaderId() == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book does not have a reader");
+        }
+        Book updatedBook = bookRepository.getBookByBookId(book.getBookId());
+        if (updatedBook == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found");
+        }
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(updatedBook);
+    }
+
+    @DeleteMapping("/{bookId}")
+    protected ResponseEntity<?> deleteBookbyBookId(@PathVariable UUID bookId){
+        Book deletedBook = bookRepository.deleteBookByBookId(bookId);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("book deleted" + deletedBook);
     }
 }

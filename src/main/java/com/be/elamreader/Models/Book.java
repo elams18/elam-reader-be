@@ -11,7 +11,8 @@ public class Book {
     @Id
     @GeneratedValue
     @UuidGenerator
-    private UUID book_id;
+    @Column(name = "book_id")
+    private UUID bookId;
 
     private String title;
     private String author;
@@ -21,7 +22,7 @@ public class Book {
     private String isbn;
 
     @JsonProperty("reader_id")
-    private UUID reader_id;
+    private UUID readerId;
 
     public Integer getPublication_year() {
         return publication_year;
@@ -55,11 +56,20 @@ public class Book {
         this.title = title;
     }
 
-    public UUID getReader_id() {
-        return reader_id;
+
+    public UUID getReaderId() {
+        return readerId;
     }
 
-    public void setReader_id(UUID reader_id) {
-        this.reader_id = reader_id;
+    public void setReaderId(UUID readerId) {
+        this.readerId = readerId;
+    }
+
+    public UUID getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(UUID bookId) {
+        this.bookId = bookId;
     }
 }
