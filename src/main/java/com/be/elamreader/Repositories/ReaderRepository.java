@@ -9,5 +9,5 @@ public interface ReaderRepository extends JpaRepository<Reader, Long> {
 
     Reader getReaderByReaderId(UUID reader_id);
 
-    Reader deleteReaderByReaderId(UUID reader_id);
+    void deleteReaderByReaderId(UUID reader_id);
 }

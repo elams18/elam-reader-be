@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
     Book getBookByBookId(UUID bookId);
-    Book deleteBookByBookId(UUID bookId);
+    void deleteBookByBookId(UUID bookId);
 
     List<Book> deleteBooksByReaderId(UUID readerId);
 

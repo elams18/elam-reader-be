@@ -43,12 +43,14 @@ public class ReaderController {
 
     @DeleteMapping("/{readerId}")
     protected ResponseEntity<?> deleteReaderByReaderID(@PathVariable UUID readerId){
-        Reader deletedReader = readerRepository.deleteReaderByReaderId(readerId);
-        if(deletedReader == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Reader not found");
+        try {
+            if(readerRepository.getReaderByReaderId(readerId) == null){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Reader not found");
+            }
+            readerRepository.deleteReaderByReaderId(readerId);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Reader deleted" );
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting reader"+e.getMessage());
         }
-        List<Book> deletedBooks =  bookRepository.deleteBooksByReaderId(deletedReader.getReaderId());
-
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Reader deleted"+ deletedReader);
     }
 }

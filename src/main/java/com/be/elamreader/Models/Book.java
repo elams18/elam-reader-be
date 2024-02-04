@@ -17,20 +17,16 @@ public class Book {
     private String title;
     private String author;
 
-    private Integer publication_year;
+    @Column(name = "publication_year")
+    private Integer publicationYear;
 
     private String isbn;
 
+    @Column(name = "is_favorite")
+    private boolean isFavorite;
+
     @JsonProperty("reader_id")
     private UUID readerId;
-
-    public Integer getPublication_year() {
-        return publication_year;
-    }
-
-    public void setPublication_year(Integer publication_year) {
-        this.publication_year = publication_year;
-    }
 
     public String getIsbn() {
         return isbn;
@@ -71,5 +67,21 @@ public class Book {
 
     public void setBookId(UUID bookId) {
         this.bookId = bookId;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public Integer getPublicationYear() {
+        return publicationYear;
+    }
+
+    public void setPublicationYear(Integer publicationYear) {
+        this.publicationYear = publicationYear;
     }
 }
